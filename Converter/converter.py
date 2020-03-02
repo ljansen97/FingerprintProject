@@ -33,9 +33,6 @@ output = dir + "converted" + "\\"
 if not os.path.isdir(output):
     print("Generating output dir...")
     os.mkdir(output)
-    
-
-#os.mkdir(dir + "converted")
 
 for file in files:
     # Create input path
