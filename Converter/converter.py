@@ -46,11 +46,12 @@ for file in files:
     img = cv2.resize(img, (64, 96))
     
     # Replace PNG with BMP
-    output_file = output + file
+    output_file = file
     output_file = output_file.replace("png", "bmp")
-    output_file = output_file.replace("\\", "/")
+	
     print(output_file)
-    cv2.imwrite(output_file, img)
+	
+    cv2.imwrite(os.path.join(output, output_file), img)
     
     # Counter + 1 for progress bar
     count += 1
