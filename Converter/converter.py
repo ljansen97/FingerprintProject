@@ -1,5 +1,6 @@
 import sys
 import os
+import cv2
 from PIL import Image
 from console_progressbar import ProgressBar
 
@@ -39,16 +40,17 @@ for file in files:
     file_in = dir + file
     
     # Open the image file
-    img = Image.open(file_in)
+    img = cv2.imread(file_in)
+    
+    #resize file
+    img = cv2.resize(img, (64, 96))
     
     # Replace PNG with BMP
-    file = file.replace(".png", ".bmp")
-    
-    # Create output path
-    file_out = output + file
-    
-    # Save the file
-    img.save(file_out)
+    output_file = output + file
+    output_file = output_file.replace("png", "bmp")
+    output_file = output_file.replace("\\", "/")
+    print(output_file)
+    cv2.imwrite(output_file, img)
     
     # Counter + 1 for progress bar
     count += 1
