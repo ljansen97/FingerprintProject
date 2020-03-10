@@ -41,17 +41,27 @@ for file in files:
     
     # Open the image file
     img = cv2.imread(file_in)
+
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv2.THRESH_BINARY,11,2)
     
-    #resize file
-    img = cv2.resize(img, (64, 96))
+    # Resize file
+    height = img.shape[0]
+    width = img.shape[1]
+    division = int(height / 64)
+    cropped = []
+    cropcounter = 0
     
-    # Replace PNG with BMP
-    output_file = file
-    output_file = output_file.replace("png", "bmp")
-	
-    print(output_file)
-	
-    cv2.imwrite(os.path.join(output, output_file), img)
+    for i in range(0, division - 1):
+        cropped.append(img[(i * 64):(i * 64) + 64, 0:width])
+    
+    for image in cropped:
+        
+        file = file.replace(".png", "")
+        output_file = file + "_" + "cropped" + str(cropcounter) + ".bmp"
+        cv2.imwrite(os.path.join(output, output_file), image)
+        cropcounter += 1
     
     # Counter + 1 for progress bar
     count += 1
