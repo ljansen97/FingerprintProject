@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 img = cv2.imread('vinger.bmp',0)
 img2 = img.copy()
-template = cv2.imread('test3.bmp',0)
+template = cv2.imread('test4.bmp',0)
 w, h = template.shape[::-1]
 
 # All the 6 methods for comparison in a list

@@ -20,7 +20,7 @@ class Simulator:
         self.progress = ProgressBar(total=len(self.files), prefix='Checking', suffix='', decimals=2, length=50, fill='#', zfill='.')
         
     def run(self):
-        print("===================== RUNNING (%s files) =====================" % (len(self.files)))
+        print("===================== RUNNING (%s files) ======================" % (len(self.files)))
         
         count = 0
     
@@ -29,7 +29,7 @@ class Simulator:
             
         for file in self.files:
             starttime = int(round(time.time() * 1000))
-            accepted = self.algorithm.test(self.comparable, file)
+            accepted = self.algorithm.test(self.comparable, os.path.join(self.fingerprints_dir, file))
             endtime = int(round(time.time() * 1000))
             time_to_execute = endtime - starttime
             
