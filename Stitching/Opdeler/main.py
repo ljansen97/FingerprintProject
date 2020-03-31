@@ -11,7 +11,7 @@ if(not os.path.isdir(os.path.join(dir, "cropped"))):
     os.mkdir(os.path.join(dir, "cropped"))
 
 def opdelen(filename, output_folder):
-    print(output_folder)
+    #print(output_folder)
     image = cv2.imread(filename)
     image_copy = copy.copy(image)
 
@@ -38,14 +38,17 @@ def opdelen(filename, output_folder):
 
     currentColor = 1
     currentCrop = 0
-    print(output_folder)
-    output_folder_image = os.path.join(output_folder + "\\", os.path.splitext(filename)[0])
+    #print("Output: %s" % (output_folder))
+    #print(os.path.join("C:/Dit/Bestaat/Niet", "ofwel"))
+    output_folder_image = os.path.join(output_folder, "stitch/" + os.path.basename(os.path.splitext(filename)[0]) + "/")
     print(output_folder_image)
-    #os.mkdir(output_folder_image)
+    if(not os.path.isdir(os.path.join(output_folder, "stitch"))):
+        os.mkdir(os.path.join(output_folder, "stitch"))
+    os.mkdir(output_folder_image)
 
     for part in parts:
         cropped = image[part[0][1]:part[1][1], part[0][0]:part[1][0]]
-        #cv2.imwrite(os.path.join(output_folder_image, "cropped_" + str(currentCrop) + ".bmp"), cropped)
+        cv2.imwrite(os.path.join(output_folder_image, "cropped_" + str(currentCrop) + ".bmp"), cropped)
         cv2.rectangle(image_copy, part[0], part[1], currentColor == 1 and (random.randint(100,255),random.randint(100,255),random.randint(100,255)) or (random.randint(100,255),random.randint(100,255),random.randint(100,255)), 2)
         currentCrop += 1
         currentColor *= -1
@@ -57,6 +60,6 @@ def opdelen(filename, output_folder):
 files = [item for item in os.listdir(dir) if os.path.isfile(os.path.join(dir, item))]
 for file in files:
     #print(os.path.join(dir, "cropped"))
-    opdelen(os.path.join(dir, file), os.path.join(dir, "cropped\\"))
+    opdelen(os.path.join(dir, file), os.path.join(dir))
 #cv2.waitKey(0)
 #cv2.destroyAllWindows()
