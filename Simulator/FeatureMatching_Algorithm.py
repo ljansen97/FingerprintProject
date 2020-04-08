@@ -10,9 +10,9 @@ class FeatureMatching_Algorithm(Algorithm):
         scanner_img = cv2.imread(scanner_img, cv2.IMREAD_GRAYSCALE)
         db_img = cv2.imread(db_img, cv2.IMREAD_GRAYSCALE)
 
-        # Initiate ORB detector
+        # Initiate SIFT detector
         sift = cv2.xfeatures2d.SIFT_create()
-        # find the keypoints and descriptors with ORB
+        # find the keypoints and descriptors with SIFT
         kp1, des1 = sift.detectAndCompute(scanner_img, None)
         kp2, des2 = sift.detectAndCompute(db_img, None)
 
